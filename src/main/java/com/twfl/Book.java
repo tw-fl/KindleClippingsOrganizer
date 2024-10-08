@@ -1,46 +1,41 @@
 package com.twfl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 public class Book {
     private final String title;
-    private final HashMap<Integer, ArrayList<Clipping>> locationToClippings;
+    private final Map<Integer, Clipping> locationToClipping;
 
     public Book(String title){
         this.title = title;
-        locationToClippings = new HashMap<>();
+        locationToClipping = new HashMap<>();
     }
 
     public void addClipping(Scanner scanner){
         String locationLine = scanner.nextLine();
         boolean isNote = !locationLine.startsWith("- Your Highlight");
-        int location = getLocation(locationLine);
+        int locationNumber = getLocation(locationLine);
         scanner.nextLine();
         StringBuilder content = new StringBuilder();
         String newLine = "";
-        while(!Objects.equals(newLine, "==========")){
+        while(!newLine.equals("==========")){
             content.append(newLine);
             newLine = scanner.nextLine();
         }
-        if(locationToClippings.containsKey(location)){
-            for(Clipping clipping : locationToClippings.get(location)){
-                if(clipping.isNote() == isNote && content.toString().contains(clipping.getContent()))
-                    clipping.setContent(content.toString());
+        if(locationToClipping.containsKey(locationNumber)){
+            Clipping oldClipping = locationToClipping.get(locationNumber);
+            if(content.toString().contains(oldClipping.getContent())){
+                oldClipping.setContent(content.toString());
             }
         }
         else{
             Clipping clipping = new Clipping(isNote, content.toString());
-            ArrayList<Clipping> newList = new ArrayList<>();
-            newList.add(clipping);
-            locationToClippings.put(getLocation(locationLine), newList);
+            locationToClipping.put(getLocation(locationLine), clipping);
         }
     }
 
-    public HashMap<Integer, ArrayList<Clipping>> getClippings(){
-        return this.locationToClippings;
+    public Map<Integer, Clipping> getClippings(){
+        return this.locationToClipping;
     }
 
     private int getLocation (String locationLine){
@@ -62,7 +57,8 @@ public class Book {
         return Integer.parseInt(locationString.toString());
     }
 
-    public String getTitle(){
+    @Override
+    public String toString(){
         return this.title;
     }
 }
