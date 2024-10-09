@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.twfl</groupId>
-    <artifactId>KindleClippingOrganizer</artifactId>
+    <artifactId>KindleClippingsOrganizer</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
 
