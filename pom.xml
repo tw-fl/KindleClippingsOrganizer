@@ -6,13 +6,13 @@
 
     <groupId>com.twfl</groupId>
     <artifactId>KindleClippingOrganizer</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
+    <packaging>jar</packaging>
 
     <properties>
-        <maven.compiler.source>22</maven.compiler.source>
-        <maven.compiler.target>22</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>22</java.version>
         <javafx.version>23</javafx.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
@@ -37,7 +37,7 @@
             <version>${javafx.version}</version>
         </dependency>
 
-        <!-- Multi-platform dependencies -->
+        <!-- Multi-platform -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
@@ -56,22 +56,10 @@
             <version>${javafx.version}</version>
             <classifier>mac</classifier>
         </dependency>
-
     </dependencies>
 
     <build>
         <plugins>
-            <!-- JavaFX plugin -->
-            <plugin>
-                <groupId>org.openjfx</groupId>
-                <artifactId>javafx-maven-plugin</artifactId>
-                <version>0.0.8</version>
-                <configuration>
-                    <mainClass>com.twfl.JavaFX.GraphicalApp</mainClass>
-                </configuration>
-            </plugin>
-
-            <!-- Maven Assembly Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -86,18 +74,27 @@
                         <configuration>
                             <archive>
                                 <manifest>
-                                    <mainClass>com.twfl.JavaFX.GraphicalApp</mainClass>
+                                    <mainClass>com.twfl.Main</mainClass>
                                 </manifest>
                             </archive>
-                            <descriptors>
-                                <descriptor>build.xml</descriptor>
-                            </descriptors>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
                             <finalName>KCO</finalName>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
 
+            <!-- JavaFX plugin -->
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.8</version>
+                <configuration>
+                    <mainClass>com.twfl.Main</mainClass>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
