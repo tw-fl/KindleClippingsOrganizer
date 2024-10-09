@@ -13,7 +13,7 @@ public class Book {
 
     public void addClipping(Scanner scanner){
         String locationLine = scanner.nextLine();
-        boolean isNote = !locationLine.startsWith("- Your Highlight");
+        boolean isNote = locationLine.startsWith("- Your Note");
         int locationNumber = getLocation(locationLine);
         scanner.nextLine();
         StringBuilder content = new StringBuilder();
